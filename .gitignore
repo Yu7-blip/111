@@ -32,6 +32,9 @@ Thumbs.db
 logs/
 *.log
 
+# ====== Claude 本地配置（含密码）======
+.claude/
+
 # ====== 环境变量（敏感）======
 .env
 .env.local
