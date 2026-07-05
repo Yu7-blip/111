@@ -1,0 +1,149 @@
+<!-- 顾客端 -->
+<block wx:if="{{role === 'user'}}">
+<view class="container profile-container">
+
+  <view class="user-header flex-row">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default/avatar.png'}}" mode="aspectFill"></image>
+
+    <view class="user-info flex-col ml-20" wx:if="{{isLogin}}">
+      <text class="nickname font-bold">{{userInfo.nickname || '微信用户'}}</text>
+      <text class="phone font-24 mt-10">{{userInfo.phone}}</text>
+    </view>
+
+    <view class="user-info flex-col ml-20" wx:else bindtap="goToLogin">
+      <text class="nickname font-bold">点击登录 / 注册</text>
+      <text class="phone font-24 mt-10">登录后享受更多外卖特权</text>
+    </view>
+  </view>
+
+  <view class="asset-card card flex-row">
+    <view class="asset-item flex-col flex-1">
+      <text class="asset-val font-bold">¥0.00</text>
+      <text class="asset-name text-gray font-24 mt-10">钱包余额</text>
+    </view>
+    <view class="asset-item flex-col flex-1" bindtap="goCoupons">
+      <text class="asset-val font-bold">{{couponCount}}</text>
+      <text class="asset-name text-gray font-24 mt-10">红包卡券</text>
+    </view>
+    <view class="asset-item flex-col flex-1">
+      <text class="asset-val font-bold">120</text>
+      <text class="asset-name text-gray font-24 mt-10">积分</text>
+    </view>
+  </view>
+
+  <view class="menu-list card">
+    <view class="menu-item flex-row space-between" bindtap="goCoupons">
+      <view class="flex-row">
+        <text class="menu-icon">🎫</text>
+        <text class="menu-text">卡券包</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="address">
+      <view class="flex-row">
+        <text class="menu-icon">📍</text>
+        <text class="menu-text">收货地址</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="favorite">
+      <view class="flex-row">
+        <text class="menu-icon">⭐</text>
+        <text class="menu-text">我的收藏</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="service">
+      <view class="flex-row">
+        <text class="menu-icon">🎧</text>
+        <text class="menu-text">联系客服</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+  </view>
+
+  <view class="logout-btn mt-40 card" wx:if="{{isLogin}}" bindtap="handleLogout">
+    退出当前账号 / 切换角色
+  </view>
+
+</view>
+</block>
+
+<!-- 骑手端 -->
+<block wx:elif="{{role === 'delivery'}}">
+<view class="container profile-container">
+
+  <view class="user-header flex-row">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default/avatar.png'}}" mode="aspectFill"></image>
+
+    <view class="user-info flex-col ml-20" wx:if="{{isLogin}}">
+      <text class="nickname font-bold">{{userInfo.nickname || '骑手'}}</text>
+      <text class="phone font-24 mt-10">{{userInfo.phone}}</text>
+    </view>
+
+    <view class="user-info flex-col ml-20" wx:else bindtap="goToLogin">
+      <text class="nickname font-bold">点击登录 / 注册</text>
+      <text class="phone font-24 mt-10">登录后开始接单赚钱</text>
+    </view>
+  </view>
+
+  <view class="asset-card card flex-row">
+    <view class="asset-item flex-col flex-1">
+      <text class="asset-val font-bold">¥{{riderStats.balance || '0.00'}}</text>
+      <text class="asset-name text-gray font-24 mt-10">账户余额</text>
+    </view>
+    <view class="asset-item flex-col flex-1">
+      <text class="asset-val font-bold">{{riderStats.todayOrders || 0}}</text>
+      <text class="asset-name text-gray font-24 mt-10">今日完成</text>
+    </view>
+    <view class="asset-item flex-col flex-1">
+      <text class="asset-val font-bold">¥{{riderStats.todayIncome || '0.00'}}</text>
+      <text class="asset-name text-gray font-24 mt-10">今日收入</text>
+    </view>
+  </view>
+
+  <view class="menu-list card">
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="tasks">
+      <view class="flex-row">
+        <text class="menu-icon">📋</text>
+        <text class="menu-text">我的任务</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="income">
+      <view class="flex-row">
+        <text class="menu-icon">💰</text>
+        <text class="menu-text">收益明细</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="settings">
+      <view class="flex-row">
+        <text class="menu-icon">⚙️</text>
+        <text class="menu-text">骑手设置</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+  </view>
+
+  <view class="logout-btn mt-40 card" wx:if="{{isLogin}}" bindtap="handleLogout">
+    退出当前账号 / 切换角色
+  </view>
+
+</view>
+</block>

@@ -1,0 +1,46 @@
+@import "/app.wxss";
+
+.food-item { margin-bottom: 30rpx; }
+.food-img {
+  width: 160rpx; height: 160rpx;
+  border-radius: 12rpx; margin-right: 20rpx; background: #f0f0f0;
+}
+.food-info { min-height: 160rpx; }
+.food-name { font-size: 30rpx; }
+.price { color: #ee0a24; font-weight: bold; font-size: 32rpx; }
+
+/* 步进器样式 */
+.stepper { align-items: center; }
+.step-btn {
+  width: 44rpx; height: 44rpx; border-radius: 50%;
+  text-align: center; line-height: 40rpx; font-size: 36rpx; font-weight: bold;
+}
+.step-btn.plus { background: #ff6b6b; color: #fff; }
+.step-btn.minus { border: 2rpx solid #e0e0e0; color: #666; line-height: 36rpx; }
+.count { margin: 0 20rpx; font-size: 28rpx; }
+/* 可点击编辑的数量 */
+.count-tappable {
+  border: 1rpx dashed #ccc;
+  border-radius: 10rpx;
+  padding: 4rpx 10rpx;
+  min-width: 48rpx;
+  text-align: center;
+  background: #fafafa;
+}
+.count-tappable:active {
+  border-color: #ff6b6b;
+  background: #fff5f5;
+}
+/* 数量输入框 */
+.count-input {
+  width: 78rpx;
+  height: 44rpx;
+  border: 2rpx solid #ff6b6b;
+  border-radius: 10rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin: 0 10rpx;
+  padding: 0 4rpx;
+}

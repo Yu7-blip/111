@@ -1,0 +1,54 @@
+<view class="container">
+  <!-- 提交表单 -->
+  <view class="card">
+    <text class="font-bold font-32">🎧 骑手专属客服</text>
+    <text class="text-gray font-24 mt-10">提交您遇到的问题，平台会尽快处理</text>
+
+    <view class="divider mt-20"></view>
+
+    <view class="mt-20">
+      <text class="font-28">问题类型</text>
+      <view class="type-row flex-row mt-10">
+        <view class="type-tag {{type === 'support' ? 'active' : ''}}" bindtap="setType" data-type="support">配送问题</view>
+        <view class="type-tag {{type === 'complaint' ? 'active' : ''}}" bindtap="setType" data-type="complaint">订单异常</view>
+        <view class="type-tag {{type === 'other' ? 'active' : ''}}" bindtap="setType" data-type="other">其他</view>
+      </view>
+    </view>
+
+    <view class="mt-20">
+      <text class="font-28">问题描述</text>
+      <textarea class="feedback-input mt-10" placeholder="请详细描述您遇到的问题（至少5个字符）" value="{{content}}" bindinput="onInput" maxlength="500" />
+      <text class="text-gray font-22" style="text-align:right;display:block;">{{content.length}}/500</text>
+    </view>
+
+    <button class="btn-main mt-30" bindtap="submit" loading="{{submitting}}" style="width:100%;border-radius:16rpx;">提交</button>
+  </view>
+
+  <!-- 历史反馈记录 -->
+  <view class="card mt-20">
+    <text class="font-bold font-30">📋 我的反馈记录</text>
+    <view class="divider mt-10"></view>
+
+    <view wx:if="{{feedbackList.length === 0 && !loadingHistory}}" class="text-gray font-26 text-center py-20">暂无反馈记录</view>
+
+    <block wx:for="{{feedbackList}}" wx:key="id">
+      <view class="feedback-item mt-20">
+        <view class="flex-row space-between">
+          <view class="flex-row">
+            <text class="tag {{item.type === 'appeal' ? 'tag-warn' : item.type === 'complaint' ? 'tag-danger' : 'tag-info'}}">
+              {{item.type === 'appeal' ? '申诉' : item.type === 'complaint' ? '投诉' : item.type === 'support' ? '客服' : '其他'}}
+            </text>
+            <text class="tag ml-10 {{item.status === 1 ? 'tag-success' : 'tag-pending'}}">{{item.status === 1 ? '已回复' : '待处理'}}</text>
+          </view>
+          <text class="font-22 text-gray">{{item.createTime}}</text>
+        </view>
+        <text class="font-26 mt-10" style="color:#333;">{{item.content}}</text>
+        <view class="reply-box mt-10" wx:if="{{item.reply}}">
+          <text class="font-24" style="color:#ff6b6b;">平台回复：</text>
+          <text class="font-26">{{item.reply}}</text>
+        </view>
+      </view>
+      <view class="divider" wx:if="{{index < feedbackList.length - 1}}"></view>
+    </block>
+  </view>
+</view>

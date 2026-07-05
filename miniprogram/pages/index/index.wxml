@@ -1,0 +1,68 @@
+<view class="container">
+
+<block wx:if="{{role === 'user'}}">
+  <view class="header flex-row space-between">
+    <view class="location flex-row" bindtap="chooseLocation">
+      <text class="ellipsis font-bold">{{currentLocation}}</text>
+      <text class="arrow">></text>
+    </view>
+    <view class="search-box flex-row">
+      <icon type="search" size="14"></icon>
+      <input placeholder="搜索商家、菜品" disabled bindtap="goToSearch" />
+    </view>
+  </view>
+
+  <view class="banner card">
+    <view class="banner-placeholder">热门活动 / 广告位</view>
+  </view>
+
+  <view class="section-title flex-row space-between">
+    <text>附近商家</text>
+    <view class="sort-tabs flex-row">
+      <text class="sort-item {{sortBy === 'rating' ? 'active' : ''}}" bindtap="switchSort" data-sort="rating">评分</text>
+      <text class="sort-item {{sortBy === 'distance' ? 'active' : ''}}" bindtap="switchSort" data-sort="distance">距离</text>
+      <text class="sort-item {{sortBy === 'sales' ? 'active' : ''}}" bindtap="switchSort" data-sort="sales">销量</text>
+    </view>
+  </view>
+  <view class="shop-list">
+    <view class="shop-card-wrapper" wx:for="{{shopList}}" wx:key="id">
+      <view class="shop-status-tag" wx:if="{{item.isOpen}}">营业中</view>
+      <view class="shop-status-tag closed" wx:else>休息中</view>
+      <shop-card shop="{{item}}" bind:click="goToShop"></shop-card>
+    </view>
+    <empty-state wx:if="{{shopList.length === 0}}" text="暂无商家" icon="/images/icons/empty.png"></empty-state>
+  </view>
+</block>
+
+<block wx:elif="{{role === 'delivery'}}">
+  <view class="status-card card flex-row space-between">
+    <view class="flex-col">
+      <text class="font-32 font-bold">{{isWorking ? '正在听单中...' : '已休息'}}</text>
+      <text class="font-24 text-gray mt-10">保持在线才能收到派单</text>
+    </view>
+    <switch checked="{{isWorking}}" bindchange="toggleWorkStatus" color="#ff6b6b"/>
+  </view>
+
+  <view class="stats-grid flex-row space-between">
+    <view class="stat-box card flex-col flex-1">
+      <text class="text-gray font-24">今日完成</text>
+      <text class="font-bold font-32 mt-10">{{todayStats.completed}} 单</text>
+    </view>
+    <view class="stat-box card flex-col flex-1 ml-20">
+      <text class="text-gray font-24">预计收入</text>
+      <text class="font-bold font-32 text-primary mt-10">¥{{todayStats.income}}</text>
+    </view>
+  </view>
+
+  <view class="section-title">新订单大厅</view>
+  <view class="task-list">
+    <task-card wx:for="{{taskList}}" wx:key="id" task="{{item}}" mode="lobby" bind:action="handleTaskAction"></task-card>
+    
+    <empty-state wx:if="{{taskList.length === 0}}" 
+                 text="{{isWorking ? '暂无可接订单，请耐心等待...' : '请开启听单模式获取订单'}}" 
+                 icon="/images/icons/empty.png">
+    </empty-state>
+  </view>
+</block>
+
+</view>

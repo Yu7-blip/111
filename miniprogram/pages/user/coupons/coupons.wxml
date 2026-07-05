@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="tabs flex-row">
+    <view class="tab-item {{tabIndex === 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">我的卡券</view>
+    <view class="tab-item {{tabIndex === 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">领券中心</view>
+  </view>
+
+  <!-- My Coupons -->
+  <view wx:if="{{tabIndex === 0}}">
+    <view class="coupon-list" wx:if="{{myCoupons.length > 0}}">
+      <view class="card coupon-card-item flex-row" wx:for="{{myCoupons}}" wx:key="id">
+        <view class="c-left flex-col">
+          <text class="c-amount">¥{{item.reduceAmount}}</text>
+          <text class="text-gray font-22">满{{item.conditionAmount}}可用</text>
+        </view>
+        <view class="c-right flex-col flex-1">
+          <text class="font-bold font-28">{{item.name}}</text>
+          <text class="text-gray font-22 mt-10">{{item.desc}}</text>
+        </view>
+        <text class="font-22" style="color:#ccc" wx:if="{{!item.usable}}">不可用</text>
+      </view>
+    </view>
+    <view class="empty-state flex-col" wx:else>
+      <text class="text-gray mt-40">暂无优惠券</text>
+    </view>
+  </view>
+
+  <!-- Available Coupons -->
+  <view wx:if="{{tabIndex === 1}}">
+    <view class="coupon-list" wx:if="{{availableCoupons.length > 0}}">
+      <view class="card coupon-card-item flex-row" wx:for="{{availableCoupons}}" wx:key="id">
+        <view class="c-left flex-col">
+          <text class="c-amount">¥{{item.reduceAmount}}</text>
+          <text class="text-gray font-22">满{{item.conditionAmount}}可用</text>
+        </view>
+        <view class="c-right flex-col flex-1">
+          <text class="font-bold font-28">{{item.name}}</text>
+          <text class="text-gray font-22 mt-10">{{item.desc}}</text>
+          <text class="font-20 mt-10" style="color:#ff6b6b">{{item.shopType}}</text>
+        </view>
+        <view class="btn-get" bindtap="claimCoupon" data-id="{{item.id}}">立即领取</view>
+      </view>
+    </view>
+    <view class="empty-state flex-col" wx:else>
+      <text class="text-gray mt-40">暂时没有可领的优惠券</text>
+    </view>
+  </view>
+</view>

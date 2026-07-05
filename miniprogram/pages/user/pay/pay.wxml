@@ -1,0 +1,45 @@
+<view class="container" style="background: #fff; min-height: 100vh;">
+  <view class="flex-col" style="align-items: center; margin-top: 60rpx;">
+    <text class="text-gray font-28">支付金额</text>
+    <text class="font-bold" style="font-size: 72rpx; margin-top: 20rpx;">¥{{amount}}</text>
+    <text class="text-gray font-24 mt-20">收款方：外卖平台商户</text>
+  </view>
+
+  <view class="card" style="margin: 40rpx 30rpx;" wx:if="{{orderInfo}}">
+    <view class="flex-row space-between mt-10">
+      <text class="text-gray font-28">商品金额</text>
+      <text class="font-28">¥{{orderInfo.totalPrice}}</text>
+    </view>
+    <view class="flex-row space-between mt-20">
+      <text class="text-gray font-28">配送费</text>
+      <text class="font-28">¥{{orderInfo.deliveryFee}}</text>
+    </view>
+    <view class="flex-row space-between mt-20">
+      <text class="text-gray font-28">优惠抵扣</text>
+      <text class="font-28 {{discount > 0 ? 'text-primary' : 'text-gray'}}">{{discount > 0 ? '-¥' + discount : '无'}}</text>
+    </view>
+    <view class="divider mt-20"></view>
+    <view class="flex-row space-between mt-20">
+      <text class="font-bold font-28">实付金额</text>
+      <text class="font-bold font-28 text-primary">¥{{orderInfo.actualAmount || amount}}</text>
+    </view>
+  </view>
+
+  <!-- 支付方式选择 -->
+  <view style="padding: 0 40rpx; margin-top: 40rpx;">
+    <text class="font-28 text-gray" style="margin-bottom: 20rpx; display: block;">选择支付方式</text>
+    <view class="flex-row space-between" style="margin-bottom: 30rpx;">
+      <view class="pay-option {{payMethod === '微信支付' ? 'active' : ''}}" bindtap="selectPayMethod" data-method="微信支付">
+        <text class="pay-icon">💬</text>
+        <text>微信支付</text>
+      </view>
+      <view class="pay-option {{payMethod === '支付宝' ? 'active' : ''}}" bindtap="selectPayMethod" data-method="支付宝">
+        <text class="pay-icon">🔵</text>
+        <text>支付宝</text>
+      </view>
+    </view>
+    <button class="btn-main" style="width: 100%; border-radius: 12rpx;" bindtap="mockPay" disabled="{{paying}}" loading="{{paying}}">
+      {{payMethod === '微信支付' ? '微信支付' : '支付宝支付'}} ¥{{orderInfo.actualAmount || amount}}
+    </button>
+  </view>
+</view>

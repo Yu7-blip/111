@@ -1,0 +1,32 @@
+<view class="shop-card" bindtap="onTapCard">
+  <view class="shop-img-wrap">
+    <image class="shop-logo" src="{{shop.logo || '/images/default/shop.png'}}" mode="aspectFill"></image>
+    <view class="shop-badge" wx:if="{{shop.deliveryTime}}">
+      <text>{{shop.deliveryTime}}分钟</text>
+    </view>
+  </view>
+
+  <view class="shop-body flex-col flex-1">
+    <text class="shop-name font-bold ellipsis">{{shop.name}}</text>
+
+    <view class="shop-meta flex-row mt-10">
+      <star-rating rating="{{shop.rating}}" size="22"></star-rating>
+      <text class="rating-text font-semibold ml-10">{{shop.rating}}</text>
+      <text class="sales-text font-22 ml-16">月售{{shop.sales}}+</text>
+    </view>
+
+    <view class="shop-footer flex-row space-between mt-12">
+      <view class="shop-tags flex-row">
+        <text class="tag tag-red">起送¥{{shop.minPrice}}</text>
+        <text class="tag tag-orange ml-10">配送¥{{shop.deliveryFee}}</text>
+      </view>
+      <text class="distance-text font-24" wx:if="{{shop.distance}}">
+        <text class="distance-icon">📍</text> {{shop.distance}}km
+      </text>
+    </view>
+
+    <view class="shop-time font-24 text-gray mt-10" wx:if="{{shop.openTime && shop.closeTime}}">
+      <text>营业时间 {{shop.openTime}}-{{shop.closeTime}}</text>
+    </view>
+  </view>
+</view>

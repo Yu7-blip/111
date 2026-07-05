@@ -1,0 +1,34 @@
+<view class="cart-popup-container" wx:if="{{show}}">
+  <view class="mask" bindtap="onClose"></view>
+  
+  <view class="popup-content {{show ? 'slide-up' : ''}}">
+    <view class="popup-header flex-row space-between">
+      <text class="font-bold">已选商品</text>
+      <view class="clear-btn flex-row text-gray font-24" bindtap="onClear">
+        <text>🗑️</text><text class="ml-10">清空购物车</text>
+      </view>
+    </view>
+    
+    <scroll-view scroll-y class="cart-scroll">
+      <view class="cart-item flex-row space-between" wx:for="{{cartList}}" wx:key="id">
+        <text class="font-bold flex-1 ellipsis">{{item.name}}</text>
+        <view class="flex-row">
+          <text class="price mr-30">¥{{item.price * item.count}}</text>
+          
+          <view class="stepper flex-row">
+            <view class="step-btn minus" bindtap="onMinus" data-item="{{item}}">-</view>
+            <text class="count count-tappable" wx:if="{{!item._editing}}"
+                  catchtap="onCountTap" data-item="{{item}}">{{item.count}}</text>
+            <input class="count-input" wx:if="{{item._editing}}" type="number"
+                   value="{{item._editCount}}"
+                   bindblur="onCountConfirm" bindconfirm="onCountConfirm"
+                   data-item="{{item}}"
+                   focus="{{true}}" maxlength="2" />
+            <view class="step-btn plus" bindtap="onPlus" data-item="{{item}}">+</view>
+          </view>
+        </view>
+      </view>
+      <view style="height: 120rpx;"></view>
+    </scroll-view>
+  </view>
+</view>

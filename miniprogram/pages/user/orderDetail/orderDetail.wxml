@@ -1,0 +1,96 @@
+<view class="container pb-120">
+  
+  <view class="status-header flex-col">
+    <text class="status-title font-bold">{{order.statusText}}</text>
+    <text class="status-desc font-24 mt-10">{{statusDesc}}</text>
+
+    <view class="action-row flex-row mt-20">
+      <view class="btn-outline" wx:if="{{order.status === 0}}">立即支付</view>
+      <view class="btn-outline" wx:if="{{order.status === 4 || order.status === 3}}" bindtap="reorder">再来一单</view>
+      <view class="btn-outline btn-refund" wx:if="{{order.status === 1 || order.status === 2}}" bindtap="requestRefund">申请退款</view>
+    </view>
+  </view>
+
+  <view class="card delivery-card flex-row space-between" wx:if="{{order.status === 2}}">
+    <view class="flex-row">
+      <image class="avatar" src="/images/default/avatar.png"></image>
+      <view class="flex-col ml-20">
+        <text class="font-bold">{{order.riderName}}</text>
+        <text class="font-24 text-gray mt-10">评分 {{order.riderRating || 5}} 分</text>
+      </view>
+    </view>
+    <view class="call-icon" bindtap="callPhone" data-phone="{{order.riderPhone}}">📞</view>
+  </view>
+
+  <view class="card goods-card">
+    <view class="shop-name font-bold flex-row space-between" bindtap="goToShop">
+      <text>{{order.shopName}} ></text>
+      <view class="call-icon-small" catchtap="callPhone" data-phone="{{order.shopPhone}}">📞</view>
+    </view>
+    <view class="divider"></view>
+    
+    <view class="goods-item flex-row mt-20" wx:for="{{order.goodsList}}" wx:key="id">
+      <image class="goods-img" src="{{item.image || '/images/default/food.png'}}" mode="aspectFill"></image>
+      <view class="goods-info flex-col flex-1 space-between">
+        <text class="font-bold">{{item.name}}</text>
+        <view class="flex-row space-between">
+          <text class="text-gray">x{{item.count}}</text>
+          <text class="font-bold">¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="divider"></view>
+    <view class="fee-item flex-row space-between">
+      <text class="font-28">配送费</text>
+      <text class="font-28">¥{{order.deliveryFee}}</text>
+    </view>
+    <view class="fee-item flex-row space-between mt-20">
+      <text class="font-28">打包费</text>
+      <text class="font-28">¥{{order.packageFee}}</text>
+    </view>
+    
+    <view class="divider"></view>
+    <view class="total-wrap flex-row space-between">
+      <text class="text-gray font-24">优惠 ¥{{order.discountAmount || '0.00'}}</text>
+      <view>
+        <text class="font-28">实付 </text>
+        <text class="total-price font-bold">¥{{order.actualAmount || order.totalPrice}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="card rate-card flex-col" wx:if="{{order.status === 3 && !order.isRated}}">
+    <text class="font-bold font-32 text-center">您对本次服务满意吗？</text>
+    
+    <view class="star-wrap flex-row mt-20">
+      <view class="star {{rating >= item ? 'active' : ''}}" 
+            wx:for="{{[1, 2, 3, 4, 5]}}" wx:key="*this" 
+            bindtap="chooseStar" data-val="{{item}}">★</view>
+    </view>
+    
+    <textarea class="rate-input mt-20" placeholder="菜品口味如何，骑手服务满意吗？" bindinput="onCommentInput"></textarea>
+    <view class="btn-main submit-rate mt-20" bindtap="submitRate">提交评价</view>
+  </view>
+
+  <view class="card info-card">
+    <view class="info-item flex-row space-between">
+      <text class="text-gray font-28">订单号码</text>
+      <text class="font-28">{{order.orderNo}}</text>
+    </view>
+    <view class="info-item flex-row space-between mt-20">
+      <text class="text-gray font-28">下单时间</text>
+      <text class="font-28">{{order.createTime}}</text>
+    </view>
+    <view class="info-item flex-row space-between mt-20">
+      <text class="text-gray font-28">支付方式</text>
+      <text class="font-28">{{order.payMethod}}</text>
+    </view>
+    <view class="info-item flex-col mt-20">
+      <text class="text-gray font-28">收货地址</text>
+      <text class="font-28 mt-10">{{order.address.detail}}</text>
+      <text class="font-28 text-gray mt-10">{{order.address.name}} {{order.address.phone}}</text>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,141 @@
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding-top: 20rpx;
+  padding-bottom: 60rpx;
+}
+
+.form-card {
+  margin: 20rpx 30rpx;
+  padding: 0;
+}
+
+.form-item {
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.form-item:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #333;
+  width: 140rpx;
+  flex-shrink: 0;
+}
+
+.label-row .label {
+  width: auto;
+}
+
+.input {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.region-group {
+  gap: 16rpx;
+}
+.region-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+  text-align: center;
+  padding: 12rpx 0;
+  background-color: #f5f5f5;
+  border-radius: 8rpx;
+}
+
+.textarea {
+  font-size: 28rpx;
+  color: #333;
+  width: 100%;
+  min-height: 120rpx;
+  padding-top: 12rpx;
+}
+
+/* ===== 位置选择按钮 ===== */
+.location-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.locate-btn {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.locate-btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+.locate-gps {
+  background: #ecf5ff;
+  color: #409eff;
+  border: 2rpx solid #b3d8ff;
+}
+.locate-gps.locating {
+  background: #e0edff;
+  opacity: 0.7;
+}
+
+.locate-map {
+  background: #fef0f0;
+  color: #ff6b6b;
+  border: 2rpx solid #fbc4c4;
+}
+
+.location-info {
+  margin-top: 16rpx;
+  padding: 16rpx 20rpx;
+  background: #f0f9eb;
+  border-radius: 10rpx;
+  border-left: 4rpx solid #67c23a;
+}
+
+.location-tip {
+  margin-top: 16rpx;
+  padding: 16rpx 20rpx;
+  background: #fdf6ec;
+  border-radius: 10rpx;
+  border-left: 4rpx solid #e6a23c;
+}
+
+.text-success { color: #67c23a; }
+.text-warning { color: #e6a23c; }
+.font-20 { font-size: 20rpx; }
+.font-22 { font-size: 22rpx; }
+
+.btn-group {
+  padding: 40rpx 30rpx;
+}
+
+.save-btn {
+  padding: 26rpx 0;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  border-radius: 50rpx;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+}
+
+.btn-delete {
+  padding: 26rpx 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #ff6b6b;
+  margin-top: 30rpx;
+  border: 1rpx solid #ff6b6b;
+  border-radius: 50rpx;
+}
+
+.mb-10 { margin-bottom: 10rpx; }
+.mt-10 { margin-top: 10rpx; }
+.mt-20 { margin-top: 20rpx; }
+.space-between { display: flex; justify-content: space-between; }

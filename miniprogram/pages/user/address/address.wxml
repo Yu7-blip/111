@@ -1,0 +1,45 @@
+<view class="container">
+
+  <view class="address-list" wx:if="{{addressList.length > 0}}">
+    <view
+      class="card address-card flex-row"
+      wx:for="{{addressList}}"
+      wx:key="id"
+      data-index="{{index}}"
+      bindtap="{{mode === 'select' ? 'selectAddress' : ''}}"
+    >
+      <view class="flex-col flex-1">
+        <view class="flex-row space-between">
+          <text class="font-bold font-30">{{item.name}}</text>
+          <text class="font-28 text-gray">{{item.phone}}</text>
+        </view>
+        <text class="font-26 text-gray mt-10">
+          {{item.province}}{{item.city}}{{item.district}}{{item.detail}}
+        </text>
+        <view class="flex-row mt-10">
+          <text class="tag default-tag" wx:if="{{item.isDefault === 1}}">默认</text>
+        </view>
+      </view>
+
+      <view class="actions" wx:if="{{mode === 'manage'}}">
+        <text class="action-btn" bindtap="setDefault" data-index="{{index}}">设为默认</text>
+        <text class="action-btn" bindtap="editAddress" data-index="{{index}}">编辑</text>
+        <text class="action-btn delete-btn" bindtap="deleteAddress" data-index="{{index}}">删除</text>
+      </view>
+
+      <text class="arrow text-gray" wx:if="{{mode === 'select'}}">></text>
+    </view>
+  </view>
+
+  <view class="empty-state flex-col" wx:else>
+    <text class="empty-icon">📍</text>
+    <text class="empty-text">还没有收货地址</text>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="btn-main add-btn" bindtap="addAddress">
+      + 新增收货地址
+    </view>
+  </view>
+
+</view>

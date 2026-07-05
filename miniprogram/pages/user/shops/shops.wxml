@@ -1,0 +1,55 @@
+<view class="container">
+  <view class="search-container">
+    <view class="search-bar flex-row">
+      <icon type="search" size="14"></icon>
+      <input type="text" placeholder="想吃什么？" bindinput="onSearchInput" confirm-type="search" bindconfirm="executeSearch" />
+    </view>
+  </view>
+
+  <view class="filter-tabs flex-row space-between">
+    <view class="tab-item {{activeTab === 'default' ? 'active' : ''}}" bindtap="changeTab" data-tab="default">综合排序</view>
+    <view class="tab-item {{activeTab === 'sales' ? 'active' : ''}}" bindtap="changeTab" data-tab="sales">销量最高</view>
+    <view class="tab-item {{activeTab === 'distance' ? 'active' : ''}}" bindtap="changeTab" data-tab="distance">距离最近</view>
+    <view class="tab-item" bindtap="toggleFilter">筛选 <text class="icon-filter">▼</text></view>
+  </view>
+
+  <scroll-view scroll-y class="shop-list" bindscrolltolower="loadMoreShops">
+    <view class="shop-card card flex-row" wx:for="{{shopList}}" wx:key="id" bindtap="goToMenu" data-id="{{item.id}}">
+      <image class="shop-img" src="{{item.logo || '/images/default/shop.png'}}" mode="aspectFill"></image>
+      
+      <view class="shop-info flex-col flex-1">
+        <view class="flex-row space-between">
+          <text class="shop-name font-bold ellipsis">{{item.name}}</text>
+          <text class="delivery-time font-24 text-gray">{{item.deliveryTime}}分钟</text>
+        </view>
+        
+        <view class="shop-stats flex-row mt-10">
+          <text class="rating text-warning">★ {{item.rating}}</text>
+          <text class="sales font-24 text-gray ml-20">月售 {{item.sales}}+</text>
+        </view>
+        
+        <view class="shop-delivery flex-row space-between mt-10 font-24 text-gray">
+          <view>
+            <text>起送 ¥{{item.minPrice}}</text>
+            <text class="divider-v">|</text>
+            <text>配送 ¥{{item.deliveryFee}}</text>
+          </view>
+          <text class="distance">{{item.distance}}km</text>
+        </view>
+
+        <view class="shop-time font-24 text-gray mt-10" wx:if="{{item.openTime && item.closeTime}}">
+          <text>营业时间 {{item.openTime}}-{{item.closeTime}}</text>
+        </view>
+
+        <view class="tags-row flex-row mt-10" wx:if="{{item.activities.length}}">
+          <view class="tag-item" wx:for="{{item.activities}}" wx:for-item="act" wx:key="index">
+            {{act}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="loading-state text-gray font-24 text-center" wx:if="{{isLoading}}">加载中...</view>
+    <view class="no-more text-gray font-24 text-center" wx:if="{{!hasMore && shopList.length > 0}}">没有更多商家了</view>
+  </scroll-view>
+</view>

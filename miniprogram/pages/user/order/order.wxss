@@ -1,0 +1,211 @@
+/* 容器 */
+.container {
+  background: linear-gradient(180deg, #f0f2f5 0%, #f7f8fa 100%);
+  min-height: 100vh;
+  padding-bottom: 140rpx;
+}
+
+/* ==================== 地址卡片 ==================== */
+.address-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 32rpx;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  color: #fff;
+  box-shadow: 0 8rpx 28rpx rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.address-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30rpx;
+  right: -20rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border: 3rpx solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+}
+
+/* ==================== 商品卡片 ==================== */
+.goods-card {
+  background: #fff;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
+}
+.shop-name {
+  font-size: 30rpx;
+  font-weight: 700;
+  padding: 24rpx;
+  color: #1a1a1a;
+}
+
+.goods-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+.goods-item:last-child { border-bottom: none; }
+
+.goods-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 16rpx;
+  margin-right: 20rpx;
+  background: #f5f5f5;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+.goods-info { flex: 1; }
+
+/* 费用行 */
+.fee-item {
+  padding: 16rpx 24rpx;
+}
+.fee-item:last-child {
+  padding-top: 20rpx;
+  margin-top: 8rpx;
+  border-top: 1rpx dashed #eee;
+}
+
+/* ==================== 优惠券选择区 ==================== */
+.coupon-section {
+  background: #fff;
+  padding: 24rpx;
+  margin: 24rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
+}
+.coupon-scroll {
+  max-height: 500rpx;
+  overflow-y: auto;
+}
+
+.coupon-card-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  margin-top: 16rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(135deg, #fffaf5, #fff8f0);
+  border: 2rpx solid #ffe8d0;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.02);
+}
+.coupon-card-item.selected {
+  background: linear-gradient(135deg, #fff5f5, #fff0f0);
+  border-color: #ff6b6b;
+  box-shadow: 0 4rpx 16rpx rgba(255,107,107,0.12);
+}
+.coupon-card-item.disabled {
+  background: #f8f8f8;
+  border-color: #e8e8e8;
+  opacity: 0.55;
+}
+
+.c-amount-block {
+  width: 120rpx;
+  text-align: center;
+  padding-right: 20rpx;
+  border-right: 2rpx dashed #ffe0c0;
+  flex-shrink: 0;
+}
+.coupon-card-item.selected .c-amount-block { border-color: #ff6b6b; }
+.coupon-card-item.disabled .c-amount-block { border-color: #ddd; }
+
+.c-currency {
+  font-size: 24rpx;
+  color: #ff4757;
+  font-weight: 700;
+}
+.c-value {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #ff4757;
+  line-height: 1.1;
+}
+.coupon-card-item.disabled .c-currency,
+.coupon-card-item.disabled .c-value { color: #bbb; }
+
+.c-info {
+  flex: 1;
+  padding-left: 20rpx;
+  overflow: hidden;
+}
+.c-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  display: block;
+}
+.c-condition {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+.c-tip {
+  font-size: 22rpx;
+  color: #ccc;
+  margin-top: 4rpx;
+}
+
+.c-check {
+  padding-left: 16rpx;
+  flex-shrink: 0;
+}
+.check-circle {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 3rpx solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.check-circle.checked {
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  border-color: #ff4757;
+  box-shadow: 0 2rpx 8rpx rgba(255,71,87,0.3);
+}
+.check-mark {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+/* ==================== 底部结算栏 ==================== */
+.bottom-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 110rpx;
+  background: #fff;
+  z-index: 100;
+  padding: 0;
+  box-shadow: 0 -4rpx 24rpx rgba(0,0,0,0.06);
+}
+.price-wrap {
+  display: flex;
+  align-items: baseline;
+  flex: 1;
+  padding-left: 28rpx;
+}
+.total-price {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #ff4757;
+}
+.submit-btn {
+  height: 100%;
+  padding: 0 56rpx;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -4rpx 0 20rpx rgba(255, 71, 87, 0.2);
+}

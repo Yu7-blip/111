@@ -1,0 +1,65 @@
+<view class="container">
+
+  <view class="form-card card">
+    <view class="form-item flex-row">
+      <text class="label">收货人</text>
+      <input class="input flex-1" placeholder="请输入收货人姓名" value="{{form.name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="form-item flex-row">
+      <text class="label">手机号</text>
+      <input class="input flex-1" type="number" maxlength="11" placeholder="请输入手机号码" value="{{form.phone}}" bindinput="onPhoneInput" />
+    </view>
+
+    <view class="form-item flex-row">
+      <text class="label">所在地区</text>
+      <view class="flex-row flex-1 region-group">
+        <input class="region-input" placeholder="省" value="{{form.province}}" bindinput="onProvinceInput" />
+        <input class="region-input" placeholder="市" value="{{form.city}}" bindinput="onCityInput" />
+        <input class="region-input" placeholder="区" value="{{form.district}}" bindinput="onDistrictInput" />
+      </view>
+    </view>
+
+    <view class="form-item flex-col">
+      <text class="label mb-10">详细地址</text>
+      <textarea class="textarea" placeholder="街道、门牌号等详细信息" value="{{form.detail}}" bindinput="onDetailInput" />
+    </view>
+
+    <!-- 位置信息区域 -->
+    <view class="form-item flex-col">
+      <view class="label-row flex-row space-between mb-10">
+        <text class="label">📍 位置坐标（骑手导航用）</text>
+        <text class="font-20 {{hasCoords ? 'text-success' : 'text-warning'}}">
+          {{hasCoords ? '✅ 已定位' : '⚠️ 未定位'}}
+        </text>
+      </view>
+
+      <view class="location-actions">
+        <view class="locate-btn locate-gps {{locating ? 'locating' : ''}}" bindtap="locateMe">
+          <text>🧭 {{locating ? '定位中...' : 'GPS 自动定位'}}</text>
+        </view>
+        <view class="locate-btn locate-map" bindtap="chooseLocation">
+          <text>🗺️ 地图选点（推荐）</text>
+        </view>
+      </view>
+
+      <view class="location-info" wx:if="{{locationText}}">
+        <text class="font-22">{{locationText}}</text>
+      </view>
+      <view class="location-tip" wx:if="{{!hasCoords}}">
+        <text class="font-22 text-warning">💡 建议使用上方按钮定位，骑手才能准确导航到您的地址</text>
+      </view>
+    </view>
+
+    <view class="form-item flex-row space-between">
+      <text class="label">设为默认地址</text>
+      <switch checked="{{form.isDefault === 1}}" bindchange="onDefaultChange" color="#ff6b6b" />
+    </view>
+  </view>
+
+  <view class="btn-group">
+    <view class="btn-main save-btn" bindtap="save">保存地址</view>
+    <view class="btn-delete" bindtap="deleteAddress" wx:if="{{isEdit}}">删除地址</view>
+  </view>
+
+</view>

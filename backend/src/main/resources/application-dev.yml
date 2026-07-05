@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/delivery_platform?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD}
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+  sql:
+    init:
+      mode: never
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+      continue-on-error: true
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+jwt:
+  secret: ${JWT_SECRET:change-me-in-production}
+  expiration: 86400000
+
+tencent:
+  map:
+    key: ${TENCENT_MAP_KEY}
+
+# ==================== Resilience4j 熔断降级 ====================
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10           # 最近10次调用作为统计窗口
+        failure-rate-threshold: 50        # 失败率超过50%则熔断
+        wait-duration-in-open-state: 30s  # 熔断后30秒尝试半开
+        permitted-number-of-calls-in-half-open-state: 3  # 半开状态允许3次试探
+        automatic-transition-from-open-to-half-open-enabled: true
+        record-exceptions:
+          - java.lang.Exception
+    instances:
+      shopService:
+        base-config: default
+      orderService:
+        base-config: default
+        failure-rate-threshold: 40
+      deliveryService:
+        base-config: default
+      mapService:
+        base-config: default
+        wait-duration-in-open-state: 60s
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 8s

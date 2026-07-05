@@ -1,0 +1,102 @@
+<!-- 顾客端 -->
+<block wx:if="{{role === 'user'}}">
+<view class="container">
+  <view class="tabs flex-row">
+    <view class="tab-item {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{currentTab === 'ongoing' ? 'active' : ''}}" bindtap="switchTab" data-tab="ongoing">进行中</view>
+    <view class="tab-item {{currentTab === 'history' ? 'active' : ''}}" bindtap="switchTab" data-tab="history">历史订单</view>
+  </view>
+
+  <view class="order-list">
+    <view class="card order-card" wx:for="{{orderList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+
+      <view class="order-header flex-row space-between">
+        <view class="shop-info flex-row">
+          <image class="shop-logo" src="{{item.shopLogo || '/images/default/shop.png'}}" mode="aspectFill"></image>
+          <text class="shop-name font-bold">{{item.shopName}}</text>
+          <text class="arrow text-gray">></text>
+        </view>
+        <text class="order-status {{item.statusText === '待支付' ? 'text-primary' : (item.statusText === '已完成' ? 'text-success' : 'text-gray')}}">
+          {{item.statusText}}
+        </text>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="order-body flex-row space-between">
+        <text class="goods-desc font-28">{{item.goodsDesc}}</text>
+        <view class="price-wrap">
+          <text class="font-bold font-32">¥{{item.totalPrice}}</text>
+          <text class="text-gray font-24 ml-20">实付 ¥{{item.actualAmount || item.totalPrice}}</text>
+        </view>
+      </view>
+
+      <view class="order-footer flex-row mt-20" catchtap="preventBubble">
+        <view class="btn-outline" wx:if="{{item.status === 0}}" catchtap="payOrder" data-id="{{item.id}}" data-price="{{item.totalPrice}}">去支付</view>
+        <view class="btn-outline" wx:if="{{item.status === 3 || item.status === 4}}" catchtap="reorder" data-shop="{{item.shopId}}">再来一单</view>
+        <view class="btn-outline btn-refund" wx:if="{{item.status === 1 || item.status === 2}}" catchtap="refundOrder" data-id="{{item.id}}">退款</view>
+        <view class="btn-primary-small" wx:if="{{item.status === 3 && !item.isRated}}" catchtap="rateOrder" data-id="{{item.id}}">评价</view>
+      </view>
+
+    </view>
+
+    <view class="empty-state flex-col" wx:if="{{orderList.length === 0 && !isLoading}}">
+      <text class="text-gray mt-20">暂无相关订单</text>
+    </view>
+  </view>
+</view>
+</block>
+
+<!-- 骑手端 -->
+<block wx:elif="{{role === 'delivery'}}">
+<view class="container">
+  <!-- 待取餐 -->
+  <view class="section-title">待取餐 ({{tasks.pickupTasks.length}})</view>
+  <view class="task-list">
+    <view class="card task-card" wx:for="{{tasks.pickupTasks}}" wx:key="id">
+      <view class="flex-row space-between">
+        <view class="flex-col flex-1">
+          <text class="font-bold font-30">#{{item.orderNo}}</text>
+          <text class="font-26 text-gray mt-10">{{item.shopName}} · {{item.shopAddress}}</text>
+          <view class="flex-row mt-10">
+            <text class="font-24 tag pickup-tag">待取餐</text>
+            <text class="font-24 ml-20 text-gray">配送费 ¥{{item.fee}}</text>
+          </view>
+        </view>
+        <view class="flex-col task-actions">
+          <view class="btn-primary-small" bindtap="updateTaskStatus" data-id="{{item.id}}" data-status="delivering">确认取餐</view>
+          <view class="btn-outline-small mt-10" bindtap="openDeliveryMap" data-id="{{item.id}}">导航</view>
+        </view>
+      </view>
+      <view class="divider mt-10"></view>
+      <view class="flex-row space-between mt-10">
+        <text class="font-24 text-gray">顾客：{{item.userName}} {{item.userPhone}}</text>
+        <text class="font-24 text-gray">{{item.deliveryAddress}}</text>
+      </view>
+    </view>
+    <empty-state wx:if="{{tasks.pickupTasks.length === 0 && !isLoading}}" text="暂无待取餐订单"></empty-state>
+  </view>
+
+  <!-- 配送中 -->
+  <view class="section-title mt-20">配送中 ({{tasks.deliveringTasks.length}})</view>
+  <view class="task-list">
+    <view class="card task-card" wx:for="{{tasks.deliveringTasks}}" wx:key="id">
+      <view class="flex-row space-between">
+        <view class="flex-col flex-1">
+          <text class="font-bold font-30">#{{item.orderNo}}</text>
+          <text class="font-26 text-gray mt-10">{{item.shopName}} → {{item.deliveryAddress}}</text>
+          <view class="flex-row mt-10">
+            <text class="font-24 tag delivering-tag">配送中</text>
+            <text class="font-24 ml-20 text-gray">配送费 ¥{{item.fee}}</text>
+          </view>
+        </view>
+        <view class="flex-col task-actions">
+          <view class="btn-primary-small" bindtap="updateTaskStatus" data-id="{{item.id}}" data-status="completed">确认送达</view>
+          <view class="btn-outline-small mt-10" bindtap="openDeliveryMap" data-id="{{item.id}}">导航</view>
+        </view>
+      </view>
+    </view>
+    <empty-state wx:if="{{tasks.deliveringTasks.length === 0 && !isLoading}}" text="暂无配送中订单"></empty-state>
+  </view>
+</view>
+</block>

@@ -1,0 +1,7 @@
+.level-card { padding: 24rpx; border-radius: 16rpx; border: 2rpx solid #eee; }
+.level-card.gold { background: #fff9e6; border-color: #feca57; }
+.level-card.silver { background: #f5f7fa; border-color: #c8d6e5; }
+.level-card.bronze { background: #fff5e6; border-color: #e1b12c; }
+.level-title { font-size: 34rpx; font-weight: 700; display: block; margin-bottom: 16rpx; }
+.level-desc text { display: block; font-size: 28rpx; line-height: 2; color: #555; }
+.rule-item { font-size: 26rpx; line-height: 2; color: #666; padding: 6rpx 0; }

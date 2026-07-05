@@ -1,0 +1,38 @@
+# ====== 依赖 ======
+node_modules/
+backend/target/
+*.jar
+*.war
+
+# ====== IDE ======
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+
+# ====== 图片资源（不上传）======
+*.imge/
+*/.imge/
+
+# ====== 报告文档 ======
+_temp_*.docx
+
+# ====== 系统文件 ======
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ====== 日志 ======
+logs/
+*.log
+
+# ====== 环境变量（敏感）======
+.env
+.env.local
+application-local.yml

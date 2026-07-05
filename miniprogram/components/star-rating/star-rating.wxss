@@ -1,0 +1,13 @@
+.star-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.star {
+  color: #e0e0e0;
+  margin-right: 4rpx;
+  transition: color 0.2s;
+}
+.star.active {
+  color: #faad14; /* 亮黄色 */
+}

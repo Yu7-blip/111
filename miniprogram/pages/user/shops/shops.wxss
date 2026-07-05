@@ -1,0 +1,65 @@
+/* shops.wxss */
+.search-container {
+  padding: 20rpx;
+  background-color: #fff;
+}
+.search-bar {
+  background-color: #f2f2f2;
+  border-radius: 30rpx;
+  padding: 10rpx 30rpx;
+}
+.search-bar input {
+  margin-left: 15rpx;
+  font-size: 26rpx;
+  width: 100%;
+}
+
+/* 筛选栏 */
+.filter-tabs {
+  background-color: #fff;
+  padding: 20rpx 40rpx;
+  border-bottom: 1rpx solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.tab-item {
+  font-size: 26rpx;
+  color: #666;
+}
+.tab-item.active {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+.icon-filter {
+  font-size: 20rpx;
+}
+
+/* 商家卡片细节 */
+.shop-img {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  margin-right: 20rpx;
+}
+.divider-v {
+  margin: 0 10rpx;
+  color: #eee;
+}
+.tags-row {
+  flex-wrap: wrap;
+}
+.tag-item {
+  border: 1rpx solid #ffbaba;
+  color: #ff6b6b;
+  font-size: 20rpx;
+  padding: 2rpx 8rpx;
+  border-radius: 4rpx;
+  margin-right: 10rpx;
+  margin-bottom: 6rpx;
+}
+
+.mt-10 { margin-top: 10rpx; }
+.ml-20 { margin-left: 20rpx; }
+.text-center { text-align: center; }
+.loading-state, .no-more { padding: 30rpx 0; }

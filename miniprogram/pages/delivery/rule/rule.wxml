@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="card">
+    <text class="font-bold font-36" style="text-align:center;display:block;">🏆 骑手等级评选规范</text>
+    <view class="divider mt-20"></view>
+
+    <view class="level-card gold mt-20">
+      <text class="level-title">🌟 金牌骑手</text>
+      <view class="level-desc">
+        <text>✅ 累计配送 ≥ 200 单</text>
+        <text>✅ 好评率 ≥ 95%</text>
+        <text>✅ 优先派单权</text>
+        <text>✅ 收益加成 5%</text>
+      </view>
+    </view>
+
+    <view class="level-card silver mt-20">
+      <text class="level-title">⭐ 银牌骑手</text>
+      <view class="level-desc">
+        <text>✅ 累计配送 ≥ 50 单</text>
+        <text>✅ 好评率 ≥ 90%</text>
+        <text>✅ 正常接单</text>
+      </view>
+    </view>
+
+    <view class="level-card bronze mt-20">
+      <text class="level-title">🏅 铜牌骑手</text>
+      <view class="level-desc">
+        <text>✅ 新加入骑手或未达银牌标准</text>
+        <text>✅ 正常接单</text>
+      </view>
+    </view>
+
+    <view class="divider mt-30"></view>
+    <text class="font-bold font-28 mt-20">📋 配送奖惩规则</text>
+
+    <view class="rule-list mt-10">
+      <view class="rule-item">🔹 超时配送（>60分钟）：准时率扣分，影响等级</view>
+      <view class="rule-item">🔹 用户好评：好评率提升，加速升级</view>
+      <view class="rule-item">🔹 用户差评：好评率下降，降级风险</view>
+      <view class="rule-item">🔹 取消订单过多：影响派单优先级</view>
+      <view class="rule-item">🔹 等级每周一凌晨自动重算</view>
+    </view>
+  </view>
+</view>

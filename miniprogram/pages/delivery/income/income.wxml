@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="balance-card flex-col">
+    <text class="label">可提现余额 (元)</text>
+    <view class="amount-wrap flex-row">
+      <text class="symbol">¥</text>
+      <text class="amount">{{balance}}</text>
+    </view>
+    <view class="withdraw-btn" bindtap="handleWithdraw">立即提现</view>
+  </view>
+
+  <view class="stats-grid flex-row card">
+    <view class="stat-item flex-col flex-1">
+      <text class="stat-val font-bold">{{todayData.income}}</text>
+      <text class="stat-label text-gray font-24 mt-10">今日收入 (元)</text>
+    </view>
+    <view class="divider-v"></view>
+    <view class="stat-item flex-col flex-1">
+      <text class="stat-val font-bold">{{todayData.count}}</text>
+      <text class="stat-label text-gray font-24 mt-10">完成订单 (单)</text>
+    </view>
+  </view>
+
+  <view class="detail-section">
+    <view class="section-title flex-row space-between">
+      <text class="font-bold">收入明细</text>
+      <text class="text-gray font-24">近7天 ></text>
+    </view>
+
+    <view class="card detail-list">
+      <view class="detail-item flex-row space-between" wx:for="{{incomeList}}" wx:key="id">
+        <view class="flex-col">
+          <text class="order-type font-28">{{item.type}}</text>
+          <text class="order-time text-gray font-24 mt-10">{{item.time}}</text>
+        </view>
+        <view class="flex-col align-end">
+          <text class="income-val font-bold {{item.amount > 0 ? 'text-success' : ''}}">
+            {{item.amount > 0 ? '+' : ''}}{{item.amount}}
+          </text>
+          <text class="text-gray font-24 mt-10">余额: {{item.afterBalance}}</text>
+        </view>
+        <view class="divider" wx:if="{{index !== incomeList.length - 1}}"></view>
+      </view>
+    </view>
+  </view>
+</view>

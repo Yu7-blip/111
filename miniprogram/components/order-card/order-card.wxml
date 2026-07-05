@@ -1,0 +1,28 @@
+<view class="card order-card" bindtap="onTap">
+  <view class="order-header flex-row space-between">
+    <view class="shop-info flex-row">
+      <image class="shop-logo" src="{{order.shopLogo || '/images/default/shop.png'}}" mode="aspectFill"></image>
+      <text class="font-bold">{{order.shopName}}</text>
+      <text class="arrow text-gray">></text>
+    </view>
+    <text class="order-status {{order.status === '待支付' ? 'text-primary' : (order.status === '已完成' ? 'text-success' : 'text-gray')}}">
+      {{order.status}}
+    </text>
+  </view>
+
+  <view class="divider"></view>
+
+  <view class="order-body flex-row space-between">
+    <text class="goods-desc font-28">{{order.goodsDesc}}</text>
+    <view class="price-wrap">
+      <text class="font-bold font-32">¥{{order.totalPrice}}</text>
+      <text class="text-gray font-24 ml-20">共{{order.goodsCount}}件</text>
+    </view>
+  </view>
+
+  <view class="order-footer flex-row mt-20" catchtap="preventBubble">
+    <view class="btn-outline" wx:if="{{order.status === '待支付'}}" catchtap="onAction" data-action="pay">去支付</view>
+    <view class="btn-outline" wx:if="{{order.status === '已完成' || order.status === '已取消'}}" catchtap="onAction" data-action="reorder">再来一单</view>
+    <view class="btn-primary-small" wx:if="{{order.status === '已完成' && !order.isRated}}" catchtap="onAction" data-action="rate">评价</view>
+  </view>
+</view>

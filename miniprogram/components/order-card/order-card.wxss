@@ -1,0 +1,14 @@
+@import "/app.wxss";
+
+.order-card { padding: 30rpx; }
+.shop-logo { width: 50rpx; height: 50rpx; border-radius: 8rpx; margin-right: 16rpx; background: #f0f0f0; }
+.arrow { font-size: 24rpx; margin-left: 10rpx; }
+.order-body { padding: 20rpx 0; }
+.goods-desc { color: #333; max-width: 60%; }
+
+.order-footer { justify-content: flex-end; }
+.btn-outline, .btn-primary-small {
+  padding: 10rpx 30rpx; border-radius: 30rpx; font-size: 24rpx; margin-left: 20rpx;
+}
+.btn-outline { border: 1rpx solid #ccc; color: #666; }
+.btn-primary-small { background: #ff6b6b; color: #fff; border: 1rpx solid #ff6b6b; }

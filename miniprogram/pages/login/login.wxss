@@ -1,0 +1,561 @@
+/* ============================================
+   赛博朋克·美食狂飙  — 登录页样式
+   ============================================ */
+
+/* 页面容器 */
+.login-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ==================== 动态渐变背景 ==================== */
+.login-page {
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 25%, #16213e 50%, #0f0f23 75%, #1a0020 100%);
+  animation: bgShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes bgShift {
+  0% {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 25%, #16213e 50%, #0f0f23 75%, #1a0020 100%);
+  }
+  33% {
+    background: linear-gradient(135deg, #1a0020 0%, #0a0a1a 25%, #1a0a2e 50%, #16213e 75%, #0f0f23 100%);
+  }
+  66% {
+    background: linear-gradient(135deg, #16213e 0%, #1a0020 25%, #0f0f23 50%, #0a0a1a 75%, #1a0a2e 100%);
+  }
+  100% {
+    background: linear-gradient(135deg, #0f0f23 0%, #16213e 25%, #0a0a1a 50%, #1a0a2e 75%, #1a0020 100%);
+  }
+}
+
+/* ==================== 浮动粒子 ==================== */
+.particle-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+
+.particle::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: particlePulse 2s ease-in-out infinite;
+}
+
+/* 粒子颜色与尺寸 */
+.p1 { width: 16rpx; height: 16rpx; left: 10%; bottom: -20rpx; animation-duration: 8s; animation-delay: 0s; }
+.p2 { width: 12rpx; height: 12rpx; left: 25%; bottom: -30rpx; animation-duration: 10s; animation-delay: 1s; }
+.p3 { width: 20rpx; height: 20rpx; left: 45%; bottom: -40rpx; animation-duration: 9s; animation-delay: 2s; }
+.p4 { width: 10rpx; height: 10rpx; left: 60%; bottom: -10rpx; animation-duration: 11s; animation-delay: 0.5s; }
+.p5 { width: 18rpx; height: 18rpx; left: 75%; bottom: -25rpx; animation-duration: 7.5s; animation-delay: 3s; }
+.p6 { width: 14rpx; height: 14rpx; left: 88%; bottom: -35rpx; animation-duration: 8.5s; animation-delay: 1.5s; }
+.p7 { width: 22rpx; height: 22rpx; left: 35%; bottom: -50rpx; animation-duration: 12s; animation-delay: 2.5s; }
+.p8 { width: 8rpx; height: 8rpx; left: 52%; bottom: -15rpx; animation-duration: 6s; animation-delay: 4s; }
+
+/* 粒子颜色 */
+.p1, .p5 { background: radial-gradient(circle, #ff6b6b, transparent); }
+.p2, .p6 { background: radial-gradient(circle, #feca57, transparent); }
+.p3, .p7 { background: radial-gradient(circle, #ff9ff3, transparent); }
+.p4, .p8 { background: radial-gradient(circle, #54a0ff, transparent); }
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes particlePulse {
+  0%, 100% { box-shadow: 0 0 6rpx currentColor; }
+  50% { box-shadow: 0 0 20rpx currentColor, 0 0 40rpx currentColor; }
+}
+
+/* ==================== 装饰圆环 ==================== */
+.deco-ring {
+  position: fixed;
+  border-radius: 50%;
+  border: 2rpx solid rgba(255, 107, 107, 0.15);
+  pointer-events: none;
+  z-index: 0;
+  animation: ringPulse 4s ease-in-out infinite;
+}
+
+.ring-1 {
+  width: 500rpx;
+  height: 500rpx;
+  top: -180rpx;
+  right: -200rpx;
+  animation-delay: 0s;
+}
+
+.ring-2 {
+  width: 350rpx;
+  height: 350rpx;
+  bottom: 120rpx;
+  left: -160rpx;
+  border-color: rgba(254, 202, 87, 0.12);
+  animation-delay: 1.5s;
+}
+
+.ring-3 {
+  width: 280rpx;
+  height: 280rpx;
+  top: 25%;
+  right: -140rpx;
+  border-color: rgba(255, 159, 243, 0.1);
+  animation-delay: 3s;
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* ==================== 品牌区 ==================== */
+.brand-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100rpx;
+  padding-bottom: 40rpx;
+  position: relative;
+  z-index: 1;
+}
+
+/* LOGO 圆环 */
+.logo-wrap {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+}
+
+.logo-inner {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow:
+    0 0 40rpx rgba(255, 107, 107, 0.5),
+    0 0 80rpx rgba(238, 90, 36, 0.3),
+    inset 0 2rpx 0 rgba(255, 255, 255, 0.3);
+  animation: logoBounce 3s ease-in-out infinite;
+}
+
+.logo-emoji {
+  font-size: 60rpx;
+}
+
+.logo-glow {
+  position: absolute;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  background: conic-gradient(from 0deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff, #ff6b6b);
+  animation: glowSpin 4s linear infinite;
+  z-index: 1;
+  opacity: 0.7;
+  filter: blur(20rpx);
+}
+
+@keyframes logoBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12rpx); }
+}
+
+@keyframes glowSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 品牌文字 */
+.brand-name {
+  font-size: 56rpx;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, #ffd4d4 50%, #feca57 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 8rpx;
+  margin-bottom: 12rpx;
+  animation: textShimmer 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 16rpx rgba(255, 107, 107, 0.4));
+}
+
+@keyframes textShimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 16rpx rgba(255, 107, 107, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 30rpx rgba(255, 107, 107, 0.8));
+  }
+}
+
+.brand-slogan {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 4rpx;
+}
+
+/* ==================== 登录卡片 ==================== */
+.login-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 32rpx;
+  padding: 48rpx 36rpx 36rpx;
+  border: 1rpx solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8rpx 64rpx rgba(0, 0, 0, 0.4),
+    inset 0 1rpx 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 1;
+  animation: cardSlideIn 0.6s ease-out;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(60rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== 角色切换器 ==================== */
+.role-switch {
+  position: relative;
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50rpx;
+  padding: 6rpx;
+  margin-bottom: 40rpx;
+  overflow: hidden;
+}
+
+.role-bg {
+  position: absolute;
+  top: 6rpx;
+  left: 6rpx;
+  width: calc(50% - 6rpx);
+  height: calc(100% - 12rpx);
+  border-radius: 44rpx;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 107, 0.4);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.role-bg.slide {
+  transform: translateX(100%);
+}
+
+.role-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 22rpx 0;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 44rpx;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.role-option.on {
+  color: #fff;
+  font-weight: 700;
+}
+
+.role-icon {
+  font-size: 32rpx;
+}
+
+/* ==================== 登录模式标签 ==================== */
+.mode-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 48rpx;
+  margin-bottom: 44rpx;
+}
+
+.mode-tab {
+  position: relative;
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.4);
+  padding-bottom: 12rpx;
+  transition: color 0.3s ease;
+}
+
+.mode-tab.active {
+  color: #ff9f43;
+  font-weight: 600;
+}
+
+.tab-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36rpx;
+  height: 4rpx;
+  border-radius: 2rpx;
+  background: linear-gradient(90deg, #ff6b6b, #feca57);
+  box-shadow: 0 0 12rpx rgba(255, 107, 107, 0.6);
+  animation: tabLineIn 0.35s ease-out;
+}
+
+@keyframes tabLineIn {
+  from { width: 0; }
+  to { width: 36rpx; }
+}
+
+/* ==================== 输入区 ==================== */
+.input-zone {
+  margin-bottom: 50rpx;
+}
+
+.input-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 28rpx 0;
+  margin-bottom: 12rpx;
+}
+
+.input-prefix {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  padding-right: 24rpx;
+  margin-right: 24rpx;
+  border-right: 2rpx solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 2rpx;
+}
+
+.input-field {
+  flex: 1;
+  font-size: 30rpx;
+  color: #fff;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.placeholder-style {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 28rpx;
+}
+
+.input-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2rpx;
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: all 0.3s ease;
+}
+
+/* 输入框获得焦点时的高亮效果 */
+.input-row:focus-within .input-underline {
+  background: linear-gradient(90deg,
+    rgba(255, 107, 107, 0.8),
+    rgba(254, 202, 87, 0.4),
+    transparent
+  );
+  height: 3rpx;
+  box-shadow: 0 -4rpx 16rpx rgba(255, 107, 107, 0.15);
+}
+
+/* 短信/密码按钮 */
+.sms-btn {
+  font-size: 26rpx;
+  color: #feca57;
+  padding: 12rpx 20rpx;
+  border-radius: 30rpx;
+  background: rgba(254, 202, 87, 0.1);
+  border: 1rpx solid rgba(254, 202, 87, 0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.sms-btn:active {
+  background: rgba(254, 202, 87, 0.2);
+  border-color: rgba(254, 202, 87, 0.4);
+}
+
+.sms-btn.disabled {
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ==================== 登录按钮 ==================== */
+.login-btn-wrap {
+  position: relative;
+}
+
+.login-btn {
+  position: relative;
+  width: 100%;
+  padding: 26rpx 0;
+  border-radius: 50rpx;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  box-shadow:
+    0 8rpx 32rpx rgba(255, 107, 107, 0.4),
+    0 0 60rpx rgba(255, 107, 107, 0.15);
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: btnPulse 2s ease-in-out infinite;
+}
+
+.login-btn:active {
+  transform: scale(0.96);
+  box-shadow:
+    0 4rpx 16rpx rgba(255, 107, 107, 0.4),
+    0 0 30rpx rgba(255, 107, 107, 0.2);
+}
+
+@keyframes btnPulse {
+  0%, 100% {
+    box-shadow: 0 8rpx 32rpx rgba(255, 107, 107, 0.4), 0 0 60rpx rgba(255, 107, 107, 0.15);
+  }
+  50% {
+    box-shadow: 0 8rpx 40rpx rgba(255, 107, 107, 0.6), 0 0 80rpx rgba(255, 107, 107, 0.3);
+  }
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 700;
+  letter-spacing: 6rpx;
+}
+
+/* 按钮光泽扫过 */
+.btn-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shineSweep 3s ease-in-out infinite;
+}
+
+@keyframes shineSweep {
+  0%, 100% { left: -100%; }
+  50% { left: 150%; }
+}
+
+/* 按钮波纹 */
+.btn-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background: transparent;
+  border: 2rpx solid rgba(255, 107, 107, 0.3);
+  transform: translate(-50%, -50%);
+  animation: rippleOut 2s ease-out infinite;
+}
+
+@keyframes rippleOut {
+  0% {
+    width: 20rpx;
+    height: 20rpx;
+    opacity: 0.8;
+  }
+  100% {
+    width: 400rpx;
+    height: 400rpx;
+    opacity: 0;
+  }
+}
+
+/* ==================== 底部提示 ==================== */
+.card-footer {
+  text-align: center;
+  margin-top: 32rpx;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.bottom-text {
+  text-align: center;
+  padding: 40rpx 0 60rpx;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.25);
+  position: relative;
+  z-index: 1;
+}
+
+.bottom-text .link {
+  color: #feca57;
+}

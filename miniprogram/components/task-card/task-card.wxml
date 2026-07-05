@@ -1,0 +1,43 @@
+<view class="card task-card" bindtap="onTap">
+  <view class="header flex-row space-between">
+    <text class="font-bold font-32">{{task.orderNo ? '#' + task.orderNo : '预估收入 ¥' + task.fee}}</text>
+    <text class="font-24 {{task.isTimeout ? 'text-danger' : 'text-primary'}}">
+      {{task.timeLimitDesc}}
+    </text>
+  </view>
+  
+  <view class="divider"></view>
+  
+  <view class="route-info flex-col">
+    <view class="route-item flex-row space-between">
+      <view class="flex-row flex-1">
+        <view class="dot pick"></view>
+        <view class="flex-col ml-20">
+          <text class="font-bold font-28">{{task.shopName}}</text>
+          <text class="text-gray font-24 mt-10">距您 {{task.distanceToShop}}km</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="route-line"></view>
+    
+    <view class="route-item flex-row space-between mt-20">
+      <view class="flex-row flex-1">
+        <view class="dot drop"></view>
+        <view class="flex-col ml-20">
+          <text class="font-bold font-28">{{task.deliveryAddress}}</text>
+          <text class="text-gray font-24 mt-10">距商家 {{task.deliveryDistance}}km</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="divider" wx:if="{{mode !== 'display'}}"></view>
+  
+  <view class="footer flex-row space-between" wx:if="{{mode !== 'display'}}" catchtap="preventBubble">
+    <text class="text-gray font-28" wx:if="{{task.orderNo}}">预估收入 ¥{{task.fee}}</text>
+    <view class="flex-1" wx:else></view> <view class="btn-main grab-btn" wx:if="{{mode === 'lobby'}}" catchtap="onAction" data-action="grab">立即抢单</view>
+    <view class="btn-primary-small" wx:if="{{mode === 'pickup'}}" catchtap="onAction" data-action="pickup">我已取餐</view>
+    <view class="btn-primary-small" wx:if="{{mode === 'delivering'}}" catchtap="onAction" data-action="deliver">确认送达</view>
+  </view>
+</view>

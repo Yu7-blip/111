@@ -1,0 +1,84 @@
+<view class="delivering-container">
+  <map
+    id="deliveryMap"
+    class="delivery-map"
+    latitude="{{latitude}}"
+    longitude="{{longitude}}"
+    markers="{{markers}}"
+    polyline="{{polyline}}"
+    show-location
+  ></map>
+
+  <!-- 客户地址无坐标警告 -->
+  <view class="no-coords-warning" wx:if="{{noDeliveryCoords && taskStatus === 'delivering'}}">
+    <view class="warning-icon">⚠️</view>
+    <view class="warning-content">
+      <text class="warning-title">客户地址未定位</text>
+      <text class="warning-desc">该地址缺少GPS坐标，无法显示路线。请电话联系客户确认地址。</text>
+      <text class="warning-addr">{{orderInfo.userAddress}}</text>
+    </view>
+  </view>
+
+  <!-- 导航指令浮层 -->
+  <view class="nav-instruction" wx:if="{{nextInstruction}}">
+    <view class="nav-icon">🧭</view>
+    <view class="nav-content">
+      <text class="nav-text">{{nextInstruction}}</text>
+      <view class="nav-stats flex-row">
+        <text class="nav-stat">剩余 {{remainingDistance}} km</text>
+        <text class="nav-stat-dot">·</text>
+        <text class="nav-stat">预计 {{remainingTime}} 分钟</text>
+        <text class="nav-stat-dot" wx:if="{{totalSteps > 0}}">·</text>
+        <text class="nav-stat" wx:if="{{totalSteps > 0}}">步骤 {{currentStepIndex + 1}}/{{totalSteps}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="info-card-wrap">
+    <view class="card info-card">
+      <!-- 阶段标签 -->
+      <view class="phase-tag {{taskStatus}}">
+        {{taskStatus === 'pickup' ? '📦 前往取餐' : '🚀 配送中'}}
+      </view>
+
+      <view class="info-header flex-row space-between">
+        <view class="flex-col">
+          <text class="font-bold font-32">
+            {{taskStatus === 'pickup' ? '距离商家' : '距离客户'}} {{remainingDistance}} km
+          </text>
+          <text class="text-gray font-24 mt-10">预计 {{remainingTime}} 分钟后{{taskStatus === 'pickup' ? '取餐' : '送达'}}</text>
+        </view>
+        <view class="order-no font-24 text-gray">订单 #{{orderInfo.orderNo}}</view>
+      </view>
+
+      <view class="divider"></view>
+
+      <view class="address-box flex-col">
+        <view class="address-item flex-row">
+          <text class="address-label pick">取</text>
+          <view class="flex-col flex-1 ml-20">
+            <text class="font-bold">{{orderInfo.shopName}}</text>
+            <text class="text-gray font-24 mt-10">{{orderInfo.shopAddress}}</text>
+          </view>
+          <view class="call-btn" catchtap="callPhone" data-phone="{{orderInfo.shopPhone}}">📞</view>
+        </view>
+
+        <view class="address-item flex-row mt-30">
+          <text class="address-label drop">送</text>
+          <view class="flex-col flex-1 ml-20">
+            <text class="font-bold">{{orderInfo.userAddress || '待分配'}}</text>
+            <text class="text-gray font-24 mt-10">{{orderInfo.userName}} {{orderInfo.userPhone}}</text>
+          </view>
+          <view class="call-btn" catchtap="callPhone" data-phone="{{orderInfo.userPhone}}">📞</view>
+        </view>
+      </view>
+
+      <view class="action-bar flex-row mt-30">
+        <button class="btn-outline flex-1" bindtap="openNavigation">🧭 导航</button>
+        <button class="btn-main flex-1 ml-20" bindtap="confirmDelivery">
+          {{taskStatus === 'pickup' ? '✅ 确认取餐' : '✅ 确认送达'}}
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

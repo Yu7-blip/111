@@ -1,0 +1,130 @@
+<view class="container profile-container">
+
+  <view class="rider-header flex-row">
+    <image class="avatar" src="{{profile.avatar || '/images/default/avatar.png'}}" mode="aspectFill"></image>
+
+    <view class="rider-info flex-col ml-20 flex-1">
+      <view class="flex-row space-between">
+        <text class="nickname font-bold">{{profile.nickname || userInfo.nickname || '专送骑手'}}</text>
+        <text class="level-tag">{{profile.level === 2 ? '🌟 金牌骑手' : profile.level === 1 ? '⭐ 银牌骑手' : '🏅 铜牌骑手'}}</text>
+      </view>
+      <text class="rider-id font-24 mt-10">手机号: {{profile.phone || '---'}}</text>
+      <text class="vehicle font-24 mt-10">登记车辆: {{profile.vehicle || '---'}}</text>
+    </view>
+  </view>
+
+  <view class="stats-card card flex-row">
+    <view class="stat-item flex-col flex-1">
+      <view class="flex-row">
+        <text class="stat-val font-bold text-primary">{{profile.onTimeRate || 100}}</text>
+        <text class="font-24 text-primary">%</text>
+      </view>
+      <text class="stat-name text-gray font-24 mt-10">准时率</text>
+    </view>
+    <view class="stat-item flex-col flex-1">
+      <view class="flex-row">
+        <text class="stat-val font-bold text-success">{{profile.praiseRate || 100}}</text>
+        <text class="font-24 text-success">%</text>
+      </view>
+      <text class="stat-name text-gray font-24 mt-10">好评率</text>
+    </view>
+    <view class="stat-item flex-col flex-1">
+      <text class="stat-val font-bold">{{profile.totalDeliveries || 0}}</text>
+      <text class="stat-name text-gray font-24 mt-10">累计送达(单)</text>
+    </view>
+    <view class="stat-item flex-col flex-1">
+      <text class="stat-val font-bold text-primary">¥{{profile.balance || 0}}</text>
+      <text class="stat-name text-gray font-24 mt-10">余额</text>
+    </view>
+  </view>
+
+  <view class="menu-list card">
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="history">
+      <view class="flex-row">
+        <text class="menu-icon">📋</text>
+        <text class="menu-text">历史跑单记录</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="rule">
+      <view class="flex-row">
+        <text class="menu-icon">📖</text>
+        <text class="menu-text">配送规范与奖惩</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="evaluations">
+      <view class="flex-row">
+        <text class="menu-icon">⭐</text>
+        <text class="menu-text">用户对我的评价</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="vehicle">
+      <view class="flex-row">
+        <text class="menu-icon">🛵</text>
+        <text class="menu-text">登记车辆</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="verify">
+      <view class="flex-row">
+        <text class="menu-icon">🪪</text>
+        <text class="menu-text">实名认证</text>
+        <text class="verify-tag ml-10" wx:if="{{profile.verifyStatus === 2}}">已认证</text>
+        <text class="verify-tag verifying ml-10" wx:if="{{profile.verifyStatus === 1}}">审核中</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+
+    <view class="divider"></view>
+
+    <view class="menu-item flex-row space-between" bindtap="handleMenu" data-type="service">
+      <view class="flex-row">
+        <text class="menu-icon">🎧</text>
+        <text class="menu-text">骑手专属客服</text>
+      </view>
+      <text class="arrow text-gray">></text>
+    </view>
+  </view>
+
+  <view class="logout-btn mt-40 card" bindtap="handleLogout">
+    退出当前账号 / 切换回用户
+  </view>
+
+  <!-- 车辆登记弹窗 -->
+  <view class="dialog-mask" wx:if="{{showVehicleDialog}}" bindtap="closeVehicleDialog"></view>
+  <view class="dialog-card" wx:if="{{showVehicleDialog}}">
+    <text class="dialog-title font-bold">登记车辆</text>
+    <input class="dialog-input" placeholder="请输入交通工具（如电动车、摩托车、汽车）" value="{{vehicleInput}}" bindinput="onVehicleInput" />
+    <view class="dialog-btns flex-row space-between mt-20">
+      <view class="btn-outline flex-1 mr-10" bindtap="closeVehicleDialog">取消</view>
+      <view class="btn-main flex-1 ml-10" bindtap="updateVehicle">确定</view>
+    </view>
+  </view>
+
+  <!-- 实名认证弹窗 -->
+  <view class="dialog-mask" wx:if="{{showVerifyDialog}}" bindtap="closeVerifyDialog"></view>
+  <view class="dialog-card" wx:if="{{showVerifyDialog}}">
+    <text class="dialog-title font-bold">实名认证</text>
+    <input class="dialog-input" placeholder="请输入真实姓名" value="{{realName}}" bindinput="onRealNameInput" />
+    <input class="dialog-input mt-20" placeholder="请输入证件号后5位以上" value="{{idCard}}" bindinput="onIdCardInput" />
+    <view class="dialog-btns flex-row space-between mt-20">
+      <view class="btn-outline flex-1 mr-10" bindtap="closeVerifyDialog">取消</view>
+      <view class="btn-main flex-1 ml-10" bindtap="submitVerify">提交</view>
+    </view>
+  </view>
+
+</view>

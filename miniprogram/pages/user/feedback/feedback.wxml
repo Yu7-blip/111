@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="card">
+    <text class="font-bold font-32">📝 投诉与反馈</text>
+    <text class="text-gray font-24 mt-10">如有问题请在此提交，平台会尽快处理</text>
+
+    <view class="divider mt-20"></view>
+
+    <view class="mt-20">
+      <text class="font-28">类型</text>
+      <view class="type-row flex-row mt-10">
+        <view class="type-tag {{type === 'complaint' ? 'active' : ''}}" bindtap="setType" data-type="complaint">投诉骑手</view>
+        <view class="type-tag {{type === 'feedback' ? 'active' : ''}}" bindtap="setType" data-type="feedback">意见反馈</view>
+        <view class="type-tag {{type === 'other' ? 'active' : ''}}" bindtap="setType" data-type="other">其他</view>
+      </view>
+    </view>
+
+    <view class="mt-20">
+      <text class="font-28">详细描述</text>
+      <textarea class="feedback-input mt-10" placeholder="请详细描述（至少5个字符）" value="{{content}}" bindinput="onInput" maxlength="500" />
+      <text class="text-gray font-22" style="text-align:right;">{{content.length}}/500</text>
+    </view>
+
+    <button class="btn-main mt-30" bindtap="submit" loading="{{submitting}}" style="width:100%;border-radius:16rpx;">提交</button>
+  </view>
+</view>

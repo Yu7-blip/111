@@ -1,0 +1,96 @@
+<view class="menu-container">
+  
+  <view class="shop-header">
+    <view class="shop-header-top flex-row space-between">
+      <view class="flex-col flex-1">
+        <text class="shop-name font-bold">{{shopInfo.name}}</text>
+        <text class="shop-notice text-gray font-24 ellipsis">公告：{{shopInfo.notice}}</text>
+      </view>
+      <view class="nav-shop-btn" bindtap="navigateToShop" wx:if="{{shopInfo.latitude && shopInfo.longitude}}">
+        <text>🧭 导航</text>
+      </view>
+    </view>
+    <view class="shop-addr text-gray font-22 mt-10" wx:if="{{shopInfo.address}}">
+      📍 {{shopInfo.address}}  |  {{shopInfo.distance || ''}}
+    </view>
+  </view>
+
+  <view class="shop-coupons" wx:if="{{shopCoupons.length > 0}}">
+    <scroll-view scroll-x class="coupon-scroll">
+      <view class="coupon-tag {{item.claimed ? 'claimed' : ''}}" wx:for="{{shopCoupons}}" wx:key="id" bindtap="claimShopCoupon" data-id="{{item.id}}" data-index="{{index}}">
+        <text class="coupon-tag-amount">¥{{item.reduceAmount}}</text>
+        <text class="coupon-tag-text">{{item.claimed ? '已领' : '满' + item.conditionAmount + '减' + item.reduceAmount}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="menu-main flex-row">
+    
+    <scroll-view class="sidebar" scroll-y scroll-with-animation>
+      <view class="category-item {{activeCategoryId === item.id ? 'active' : ''}}" 
+            wx:for="{{categories}}" wx:key="id" 
+            bindtap="switchCategory" data-id="{{item.id}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+
+    <scroll-view class="food-list flex-1" scroll-y scroll-with-animation 
+                 scroll-into-view="category-{{scrollToId}}" bindscroll="onFoodScroll">
+      
+      <view class="category-section" wx:for="{{categories}}" wx:key="id" id="category-{{item.id}}">
+        <view class="category-title font-bold">{{item.name}}</view>
+        
+        <view class="food-item flex-row" wx:for="{{item.foods}}" wx:for-item="food" wx:key="id">
+          <image class="food-img" src="{{food.image || '/images/default/food.png'}}" mode="aspectFill"></image>
+          
+          <view class="food-info flex-col flex-1 space-between">
+            <view class="flex-col">
+              <text class="food-name font-bold">{{food.name}}</text>
+              <text class="food-desc text-gray font-24 ellipsis-2">{{food.desc}}</text>
+            </view>
+            
+            <view class="food-bottom flex-row space-between">
+              <text class="price">¥{{food.price}}</text>
+              
+              <view class="stepper flex-row">
+                <view class="step-btn minus" wx:if="{{food.count > 0}}"
+                      bindtap="updateCart" data-category="{{item.id}}" data-food="{{food}}" data-type="minus">-</view>
+                <!-- 可点击数字手动输入数量 -->
+                <text class="count count-tappable" wx:if="{{food.count > 0 && !food._editing}}"
+                      catchtap="onCountTap" data-category="{{item.id}}" data-food="{{food}}">{{food.count}}</text>
+                <!-- 数量输入框 -->
+                <input class="count-input" wx:if="{{food._editing}}" type="number"
+                       value="{{food._editCount}}"
+                       bindblur="onCountConfirm" bindconfirm="onCountConfirm"
+                       data-category="{{item.id}}" data-food="{{food}}"
+                       focus="{{true}}" maxlength="2" />
+                <view class="step-btn plus"
+                      bindtap="updateCart" data-category="{{item.id}}" data-food="{{food}}" data-type="plus">+</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="bottom-space"></view>
+    </scroll-view>
+  </view>
+
+  <view class="cart-bar flex-row">
+    <view class="cart-icon-wrap" bindtap="showCartPopup">
+      <view class="cart-icon {{cartTotalCount > 0 ? 'has-item' : ''}}">🛒</view>
+      <text class="badge" wx:if="{{cartTotalCount > 0}}">{{cartTotalCount}}</text>
+    </view>
+    
+    <view class="cart-price flex-col flex-1 ml-20">
+      <text class="total-price font-bold" wx:if="{{cartTotalPrice > 0}}">¥{{cartTotalPrice}}</text>
+      <text class="text-gray font-28" wx:else>未选购商品</text>
+      <text class="text-gray font-24 mt-10">另需配送费 ¥{{shopInfo.deliveryFee}}</text>
+    </view>
+    
+    <view class="submit-btn {{cartTotalPrice >= shopInfo.minPrice ? 'active' : ''}}" bindtap="goToOrder">
+      {{cartTotalPrice >= shopInfo.minPrice ? '去结算' : '¥' + shopInfo.minPrice + '起送'}}
+    </view>
+  </view>
+
+</view>

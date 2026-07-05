@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="card">
+    <text class="font-bold font-32">📝 用户对我的评价</text>
+    <view class="divider mt-10"></view>
+
+    <block wx:for="{{evaluations}}" wx:key="id">
+      <view class="eval-item {{item.status === 1 ? 'revoked' : ''}}">
+        <view class="flex-row space-between">
+          <text class="font-26 text-gray">订单 {{item.orderNo}}</text>
+          <view class="flex-row">
+            <star-rating rating="{{item.rating}}" size="24" readonly="{{true}}" />
+            <text class="font-24 ml-10" wx:if="{{item.status === 1}}" style="color:#999;">已撤销</text>
+          </view>
+        </view>
+        <text class="font-28 mt-10">{{item.content || '无文字评价'}}</text>
+        <text class="font-22 text-gray mt-6">{{item.userName}} · {{item.createTime}}</text>
+        <view class="flex-row" style="justify-content:flex-end;margin-top:12rpx;" wx:if="{{item.rating <= 2 && item.status !== 1}}">
+          <view class="appeal-btn" bindtap="showAppeal" data-id="{{item.id}}" data-order="{{item.orderNo}}">申诉</view>
+        </view>
+      </view>
+      <view class="divider" wx:if="{{index < evaluations.length - 1}}"></view>
+    </block>
+
+    <empty-state wx:if="{{evaluations.length === 0}}" text="暂无评价" />
+  </view>
+</view>
+
+<!-- 申诉弹窗 -->
+<view class="dialog-mask" wx:if="{{showDialog}}" bindtap="closeDialog"></view>
+<view class="dialog-card" wx:if="{{showDialog}}">
+  <text class="font-bold font-30">申诉评价</text>
+  <textarea class="feedback-input mt-20" placeholder="请说明申诉理由（至少5个字符）" value="{{reason}}" bindinput="onInput" maxlength="300" />
+  <view class="dialog-btns flex-row space-between mt-20">
+    <view class="btn-outline flex-1 mr-10" bindtap="closeDialog">取消</view>
+    <view class="btn-main flex-1 ml-10" bindtap="submit">提交申诉</view>
+  </view>
+</view>

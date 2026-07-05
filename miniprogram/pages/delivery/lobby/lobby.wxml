@@ -1,0 +1,51 @@
+<view class="container">
+  
+  <view class="status-panel card flex-row space-between">
+    <view class="flex-col">
+      <text class="font-bold font-32">{{isWorking ? '正在听单中...' : '当前已休息'}}</text>
+      <text class="text-gray font-24 mt-10">{{isWorking ? '系统正为您派发最新订单' : '开启听单后才可接单'}}</text>
+    </view>
+    <switch checked="{{isWorking}}" bindchange="toggleWorkStatus" color="#ff6b6b"/>
+  </view>
+
+  <view class="order-list" wx:if="{{isWorking}}">
+    <view class="order-card card" wx:for="{{orderList}}" wx:key="id">
+      
+      <view class="header flex-row space-between">
+        <text class="font-bold font-32 text-primary">预估收入 ¥{{item.fee}}</text>
+        <text class="font-24 text-gray">建议耗时 {{item.estimateTime}}分钟</text>
+      </view>
+      
+      <view class="divider"></view>
+      
+      <view class="route-info flex-col">
+        <view class="route-item flex-row">
+          <view class="dot pick"></view>
+          <view class="flex-col flex-1 ml-20">
+            <text class="font-bold font-28">{{item.shopName}}</text>
+            <text class="text-gray font-24 mt-10">距您 {{item.distanceToShop}}km</text>
+          </view>
+        </view>
+        
+        <view class="route-line"></view>
+        
+        <view class="route-item flex-row mt-20">
+          <view class="dot drop"></view>
+          <view class="flex-col flex-1 ml-20">
+            <text class="font-bold font-28">{{item.deliveryAddress}}</text>
+            <text class="text-gray font-24 mt-10">送餐距离 {{item.deliveryDistance}}km</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="footer flex-row mt-20">
+        <button class="btn-main grab-btn" bindtap="grabOrder" data-id="{{item.id}}">立即抢单</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state flex-col" wx:if="{{orderList.length === 0 || !isWorking}}">
+    <text class="text-gray mt-40">{{!isWorking ? '休息中，暂无订单' : '暂无可接订单，请稍作等待'}}</text>
+  </view>
+
+</view>

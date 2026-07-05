@@ -1,0 +1,34 @@
+/* 状态面板 */
+.status-panel { padding: 30rpx; align-items: center; }
+
+/* 订单卡片 */
+.order-list { margin-top: 20rpx; }
+.order-card { padding: 30rpx; }
+
+/* 路线装饰：蓝红圆点及连线 */
+.route-info { position: relative; padding: 10rpx 0; }
+.dot { width: 16rpx; height: 16rpx; border-radius: 50%; z-index: 2; position: relative; }
+.dot.pick { background-color: #1890ff; }
+.dot.drop { background-color: #ff6b6b; }
+.route-item { align-items: flex-start; }
+
+.route-line { 
+  position: absolute; 
+  left: 7rpx; top: 40rpx; bottom: 40rpx; 
+  width: 2rpx; 
+  background-color: #e0e0e0; 
+  z-index: 1; 
+}
+
+/* 抢单按钮 */
+.footer { justify-content: center; }
+.grab-btn { 
+  width: 100%; 
+  border-radius: 50rpx; 
+  padding: 10rpx 0; 
+  font-size: 32rpx; 
+  line-height: 2; 
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 107, 0.3);
+}
+
+.empty-state { align-items: center; padding-top: 100rpx; }

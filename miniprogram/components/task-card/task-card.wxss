@@ -1,0 +1,14 @@
+@import "/app.wxss";
+
+.task-card { padding: 30rpx; }
+.text-danger { color: #ee0a24; font-weight: bold; }
+
+/* 路线装饰 */
+.route-info { position: relative; padding: 10rpx 0; }
+.dot { width: 16rpx; height: 16rpx; border-radius: 50%; z-index: 2; position: relative; }
+.dot.pick { background-color: #1890ff; }
+.dot.drop { background-color: #ff6b6b; }
+.route-line { position: absolute; left: 7rpx; top: 40rpx; bottom: 40rpx; width: 2rpx; background-color: #e0e0e0; z-index: 1; }
+
+.grab-btn { border-radius: 50rpx; padding: 10rpx 40rpx; font-size: 28rpx; }
+.btn-primary-small { background: #ff6b6b; color: #fff; padding: 16rpx 40rpx; border-radius: 40rpx; font-weight: bold; font-size: 28rpx; }

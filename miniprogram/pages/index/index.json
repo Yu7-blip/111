@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f7f8fa",
+  "usingComponents": {
+    "shop-card": "/components/shop-card/shop-card",
+    "task-card": "/components/task-card/task-card",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

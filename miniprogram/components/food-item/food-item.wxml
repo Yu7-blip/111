@@ -1,0 +1,25 @@
+<view class="food-item flex-row">
+  <image class="food-img" src="{{food.image || '/images/default/food.png'}}" mode="aspectFill"></image>
+  
+  <view class="food-info flex-col flex-1 space-between">
+    <view class="flex-col">
+      <text class="food-name font-bold">{{food.name}}</text>
+      <text class="food-desc text-gray font-24 ellipsis-2">{{food.desc}}</text>
+    </view>
+    
+    <view class="food-bottom flex-row space-between">
+      <text class="price">¥{{food.price}}</text>
+      
+      <view class="stepper flex-row" catchtap="preventBubble">
+        <view class="step-btn minus" wx:if="{{food.count > 0}}" bindtap="onMinus">-</view>
+        <text class="count count-tappable" wx:if="{{food.count > 0 && !food._editing}}"
+              catchtap="onCountTap">{{food.count}}</text>
+        <input class="count-input" wx:if="{{food._editing}}" type="number"
+               value="{{food._editCount}}"
+               bindblur="onCountConfirm" bindconfirm="onCountConfirm"
+               focus="{{true}}" maxlength="2" />
+        <view class="step-btn plus" bindtap="onPlus">+</view>
+      </view>
+    </view>
+  </view>
+</view>
