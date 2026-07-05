@@ -48,7 +48,7 @@ jwt:
 
 tencent:
   map:
-    key: ${TENCENT_MAP_KEY}
+    key: ${TENCENT_MAP_KEY:dummy}
 
 # ==================== Resilience4j 熔断降级 ====================
 resilience4j:
